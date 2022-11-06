@@ -1,0 +1,38 @@
+<h1>Show Post</h1>
+
+<ul>
+
+  <li>
+    <strong>Link:</strong>
+    <%= @post.link %>
+  </li>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @post.title %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @post.description %>
+  </li>
+
+  <li>
+    <strong>Author:</strong>
+    <%= @post.author %>
+  </li>
+
+  <li>
+    <strong>Pub date:</strong>
+    <%= @post.pub_date %>
+  </li>
+
+  <li>
+    <strong>Fetched at:</strong>
+    <%= @post.fetched_at %>
+  </li>
+
+</ul>
+
+<.link href={Routes.post_path(@conn, :edit, @post)}>Edit</.link>
+<.link href={Routes.post_path(@conn, :index)}>Back</.link>

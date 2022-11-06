@@ -1,0 +1,30 @@
+<div class="flex mb-3">
+  <h1 class="grow text-2xl font-bold mb-4">Posts</h1>
+  <button class="btn flex gap-2 items-center">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3" />
+    </svg>
+    <span>Refresh</span>
+  </button>
+</div>
+
+<ul class="flex flex-col gap-4">
+  <%= for post <- @posts do %>
+    <li class="bg-gray-50 border-l-4 p-1 pl-2">
+      <.link href="#" class="hover:bg-gray-100 hover:underline">
+        <p class="inline"><%= post.title %></p>
+        <sl-relative-time class="ml-3 inline text-sm text-gray-500" date={post.fetched_at}>
+          <%= post.fetched_at %>
+        </sl-relative-time>
+        <div class="italic text-sm mt-1"><%= post.link %></div>
+      </.link>
+
+      <%# raw post.description %>
+    </li>
+  <% end %>
+</ul>
+
+<Flop.Phoenix.pagination
+  meta={@meta}
+  path={{Routes, :post_path, [@conn, :index]}}
+  />

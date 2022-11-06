@@ -1,0 +1,15 @@
+<h1 class="text-lg font-bold mb-4">Show Feed</h1>
+
+<ul>
+  <li>
+    <div class="text-lg text-gray-800"><%= @feed.url %></div>
+    <%= @feed.title %>
+    <%= @feed.description %>
+    <%= @feed.fetched_at %>
+  </li>
+</ul>
+
+<div class="mt-8 flex gap-4">
+  <.link href={Routes.feed_path(@conn, :edit, @feed)} class="btn">Edit</.link>
+  <.link href={Routes.feed_path(@conn, :index)} class="btn">Back</.link>
+</div>

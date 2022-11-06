@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <%= csrf_meta_tag() %>
+    <.live_title prefix="Catnip – ">
+      <%= assigns[:page_title] || "Welcome" %>
+    </.live_title>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+
+    <script async defer type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.83/dist/components/relative-time/relative-time.js"></script>
+  </head>
+  <body>
+    <header class="mx-8 p-2 flex">
+      <h1 class="text-xl font-bold underline">
+        Catnip: <span class="font-medium">Content Aggregator</span>
+      </h1>
+      <nav class="flex-grow">
+        <ul class="flex justify-end gap-2">
+          <li><a href="/">Posts</a></li>
+          <li><a href="/feeds">Feeds</a></li>
+
+          <%= if Pow.Plug.current_user(@conn) do %>
+            <li><.link href={Routes.pow_registration_path(@conn, :edit)}>{@current_user.email}</.link></li>
+            <li><.link href={Routes.pow_session_path(@conn, :delete)} method={:delete}>Sign Out</.link></li>
+          <% else %>
+            <li><.link href={Routes.pow_session_path(@conn, :new)}>Login</.link></li>
+            <li><.link href={Routes.pow_registration_path(@conn, :new)}>Register</.link></li>
+          <% end %>
+
+          <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+            <li><.link href={Routes.live_dashboard_path(@conn, :home)}>Live Dashboard</.link></li>
+          <% end %>
+        </ul>
+      </nav>
+    </header>
+    <div class="container mx-auto my-8">
+    <%= @inner_content %>
+    </div>
+  </body>
+</html>
